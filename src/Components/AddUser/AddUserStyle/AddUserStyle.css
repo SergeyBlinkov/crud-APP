@@ -1,0 +1,27 @@
+.addUserBar {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr;
+  justify-self: center;
+  grid-template-rows: 50px 1fr 50px;
+  align-items: center;
+  grid-gap: 20px;
+  height: 600px;
+  border-radius: 30px;
+  font-weight: 700;
+}
+.addUserBar h2 {
+  text-align: center;
+  font-family: "Raleway", sans-serif;
+}
+.addUserBar .addUserBar_button {
+  margin: 0 !important;
+}
+.addUserBar .addUserBar_inputField {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 40px;
+  text-align: center;
+}
+
+/*# sourceMappingURL=AddUserStyle.css.map */

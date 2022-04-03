@@ -1,0 +1,56 @@
+@media screen and (max-width: 1200px) {
+  .userLine {
+    grid-template-columns: 1fr 35%;
+  }
+  .userLine .block-text {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media screen and (max-width: 780px) {
+  .container {
+    width: 100vw;
+  }
+  .container .container__item {
+    grid-template-columns: 1fr;
+    overflow: hidden;
+  }
+
+  .list-content {
+    height: 80vh;
+  }
+
+  .userLine {
+    grid-gap: 10px;
+    grid-template-columns: 1fr 25%;
+  }
+  .userLine .block-text {
+    grid-gap: 10px;
+  }
+  .userLine .block-button {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 3px;
+  }
+  .userLine .block-button .dropdown-button {
+    grid-column: 1;
+    grid-row: 3;
+  }
+  .userLine .block-button button {
+    padding: 3px !important;
+  }
+
+  #menuButton {
+    display: flex;
+  }
+
+  .addUserBar {
+    width: 70%;
+    position: absolute;
+    border-radius: 5px;
+    box-sizing: border-box;
+    height: 90vh;
+    transform: translateX(-150%);
+  }
+}
+
+/*# sourceMappingURL=ResponsiveStyle.css.map */

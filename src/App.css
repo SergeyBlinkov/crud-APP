@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=BIZ+UDGothic:wght@700&family=Lobster&family=Playfair+Display:wght@500&family=Raleway:wght@500&display=swap');
+
+body {
+    background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #3f87a6);
+}
+
+.container {
+    width: 1400px;
+    height: 85vh;
+    margin: 15px auto;
+}
+
+.container > h1 {
+    font-family: 'Playfair Display', serif;
+}
+
+#menuButton {
+    position: absolute !important;
+    display: none;
+}
+
+.buttonMenu-enter-active {
+    position: relative !important;
+    z-index: 10;
+    transform: translateX(0%) !important;
+    transition: 0.3s all ease;
+    margin: auto;
+}
+
+.buttonMenu-enter-done {
+    position: relative !important;
+    transition: 0.3s all ease;
+    width: 85vw;
+    margin: auto;
+    z-index: 10;
+    transform: translateX(0) !important;
+
+}
+.buttonMenu-exit {
+    z-index: 10;
+    transform: translateX(20%) !important;
+    transition: 0.1s all ease;
+}
+
+.buttonMenu-exit-active {
+    transform: translateX(-150%) !important;
+    transition: 0.3s all ease
+}
+
+.container > h1 {
+    text-align: center;
+}
+
+.container__item {
+    display: grid;
+    grid-template-columns: 20% 1fr;
+    grid-gap: 10px;
+}
