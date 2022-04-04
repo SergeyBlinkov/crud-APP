@@ -3,15 +3,16 @@ import { createSlice } from "@reduxjs/toolkit"
  export const userSlice = createSlice({
      name: 'user',
      initialState: {
-         value: []
+         value: [
+
+         ]
      },
      reducers: {
          
          inits: (state,action) => {
             let allUser = action.payload
             
-            
-         const userFunc = () => { return allUser.map((prevState) => ({
+         const userFunc = () => { return allUser === undefined ? state.value : allUser.map((prevState) => ({
                 ...prevState,
                 data: {
                     ...prevState.data,
@@ -52,15 +53,25 @@ import { createSlice } from "@reduxjs/toolkit"
             let copy = {...user,
             data: {
                 ...user.data,
-                isReady: !user.data.isReady
+                isReady: user.data.isReady
             }}
             state.value = state.value.map(data=>{
               return data._id === user._id ? copy : data})  
+         },
+         saveUpdate: (state,action) => {
+             let user = action.payload
+             let copy = {...user,
+                 data: {
+                     ...user.data,
+                     isReady: !user.data.isReady
+                 }}
+             state.value = state.value.map(data=>{
+                 return data._id === user._id ? copy : data})
          }
      }
  })
 
- export const {inits, push,del,upd,changeBool} = userSlice.actions
+ export const {inits, push,del,upd,changeBool,saveUpdate} = userSlice.actions
 
  export default userSlice.reducer
 

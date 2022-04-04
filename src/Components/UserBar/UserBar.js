@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import "./UserBarStyle/UserBarStyle.css";
 import {useSelector, useDispatch} from "react-redux";
 import {getData, itemRemove, itemUpdate} from "../../server";
-import {inits, del, changeBool, upd} from "../reducer/userSlice";
+import {inits, del, changeBool, upd, saveUpdate} from "../reducer/userSlice";
 import {DropdownButton} from "react-bootstrap";
 import {Dropdown} from "react-bootstrap";
 import {Button, TextField} from "@mui/material";
@@ -13,11 +13,11 @@ const UserBar = () => {
     const [options, setOptions] = useState([])
     const arrKeys = ['name', 'surname', 'email', 'telephone', 'address']
     const init = {
-        _id: 0, data: {},
+        data: {},
     };
     // собираем ключи и удаляем один отвечающий за отслеживание кнопки( что бы не попал на сервер )
     const iniState = (ini) => {
-        let data = {_id: 0, data: {}};
+        let data = {data: {}};
         for (const [key, value] of Object.entries(ini)) {
             data.data[key] = value;
         }
@@ -26,10 +26,12 @@ const UserBar = () => {
     };
     const [listData, setListData] = useState(init);
     const dispatch = useDispatch();
-    useEffect(() => {
-        getData().then((data) => dispatch(inits(data)));
-        //eslint-disable-next-line
-    }, []);
+     useEffect(() => {
+         getData().then((data) => {
+             dispatch(inits(data))
+         });
+         //eslint-disable-next-line
+     }, []);
 
     const handleChange = (e) => {
         const {name, value} = e.target;
@@ -39,12 +41,17 @@ const UserBar = () => {
             },
         }));
     };
+    const FillOptionFunc = (data) => {
+        let copy = Object.keys(data.data)
+        copy.pop()
+        let array = arrKeys.filter(list => !copy.includes(list))
+        setOptions(array)
+    }
     return (
         <div className={'userBar'}>
             <h2>view user</h2>
             <div className="list-content">
-                {userData === undefined ? null : userData.map((data, index) => {
-
+                {userData.map((data, index) => {
                     return (<div className="userLine" key={index} id={data._id}>
                         <div className="block-text">
                             {arrKeys.map((someKeys) => {
@@ -65,9 +72,8 @@ const UserBar = () => {
                                                                       onClick={() => {
                                                                           let copy = {...listData}
                                                                           copy._id = data._id
-                                                                          delete copy.data.name
+                                                                          delete copy.data[someKeys]
                                                                           return itemUpdate(copy).then(() => {
-
                                                                               dispatch(upd(copy));
                                                                           });
                                                                       }}>Delete</Button>}
@@ -81,11 +87,7 @@ const UserBar = () => {
                                     variant={'outlined'}
                                     color={'inherit'}
                                     onClick={() => {
-                                        let copy = Object.keys(data.data)
-                                        copy.pop()
-                                        let array = arrKeys.filter(list => !copy.includes(list))
                                         iniState(data.data)
-                                        setOptions(array)
                                         return dispatch(changeBool(data));
                                     }}
                                 >
@@ -97,7 +99,7 @@ const UserBar = () => {
                                 onClick={() => {
                                     listData._id = data._id;
                                     let copy = {...listData}
-                                    itemUpdate(copy).then(() => dispatch(upd(copy)));
+                                    itemUpdate(copy).then(() => dispatch(saveUpdate(copy)));
                                 }}
                             >
                                 Save
@@ -114,6 +116,7 @@ const UserBar = () => {
                                 Delete
                             </Button>
                             {data.data.isReady ? ("") : (<DropdownButton
+                                onClick={()=>FillOptionFunc(data)}
                                 className={'dropdown-button'}
                                 variant='secondary' title='Add'>
                                 {options.map((line) => {

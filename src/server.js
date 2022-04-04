@@ -1,32 +1,33 @@
+import axios from "axios";
+const baseUrl = 'https://crudcrud.com/api/970cafea7b7c48d88c1d22d41597fd5e/crudApp/'
+let headers = new Headers()
+headers.append('Content-Type', 'application/json');
+headers.append('Accept', 'application/json');
+headers.append('Origin',baseUrl)
+
+
 export const getData = () => {
-    return fetch('http://178.128.196.163:3000/api/records')
-        .then(response => response.json())
-        .then(data => data.filter((obj) => typeof (obj.data) === 'object'))
-        .catch((error) => console.log(error))
+    return axios.get(baseUrl)
+        .then(response => response)
+        .then(data => data.data.filter((obj) => {
+            return typeof (obj.data) === 'object'
+        }))
+        .catch((error) => console.error(error))
 }
 export const itemRemove = (id) => {
-    return fetch('http://178.128.196.163:3000/api/records/' + id, {
-        method: 'DELETE'
-    })
-        .then(response => response.json())
-        .then()
-        .catch((error) => console.log('error', error))
+    return axios.delete(baseUrl + id)
+        .then(response => response)
+        .catch((error) => console.error('error >' + error))
 }
-export const putData = (user) => {
-    return fetch("http://178.128.196.163:3000/api/records/", {
-        method: "PUT", headers: {"content-type": "application/json"}, body: JSON.stringify(user)
-    })
-        .then((response) => response.json())
-        .catch((error) => console.log('error', error))
+export const putData = (data) => {
+    return axios.post(baseUrl, data)
+        .then((response) => response)
+        .catch((error) => console.error('error', error))
 };
 
-export const itemUpdate = (credentials) => {
-    return fetch('http://178.128.196.163:3000/api/records/' + credentials._id, {
-        method: "POST", headers: {"content-type": "application/json"}, body: JSON.stringify(credentials)
-    })
-        .then((response) => response.json())
-        .then()
-        .catch((error) => console.log('error', error))
+export const itemUpdate = (data) => {
+    return axios.put(baseUrl + data._id, {data: data.data})
+        .then((response) => response)
+        .catch((error) => console.error('error', error))
 }
   
-
