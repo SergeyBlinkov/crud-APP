@@ -10,7 +10,7 @@ import {Formik} from 'formik';
 const schema = yup.object().shape({
     name: yup.string().required('Необходимое поле Name'),
     email: yup.string().email().required('Необходимое поле Email'),
-    telephone: yup.number().max(11).min(7),
+    telephone: yup.number(),
     surname: yup.string(),
     // address: yup.string()
 })
