@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = 'https://crudcrud.com/api/9d00624715be40d5ab7f9a40c33fcaf2/crudApp/'
+const baseUrl = 'https://crudcrud.com/api/70bd80c0c4704eb6aa2fe0318e3bd2cd/crudApp/'
 
 let headers = new Headers()
 headers.append('Content-Type', 'application/json');
